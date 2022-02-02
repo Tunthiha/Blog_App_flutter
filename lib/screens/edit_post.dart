@@ -127,7 +127,7 @@ class _EditPostState extends State<EditPost> {
                   const SizedBox(
                     height: 10,
                   ),
-                  kTextbutton("Submit Post", () {
+                  kTextbutton("Update Post", () {
                     if (_formKey.currentState!.validate()) {
                       setState(() {
                         _loading = !_loading;
