@@ -9,13 +9,13 @@ import '../constant.dart';
 
 Future<ApiResponse> getPosts(String? query) async {
   ApiResponse apiresponse = ApiResponse();
-  String? SearchUrl = "$postURL?search=$query";
+  String? searchUrl = "$postURL?search=$query";
   //print(SearchUrl);
   try {
     String token = await getToken();
     final response = await http.get(
       Uri.parse(
-        SearchUrl,
+        searchUrl,
       ),
       headers: {'Accept': 'application/json', 'Authorization': 'Bearer $token'},
     );

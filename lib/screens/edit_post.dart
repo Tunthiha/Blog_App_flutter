@@ -5,7 +5,7 @@ import 'package:flutter_api_test/models/api_response.dart';
 import 'package:flutter_api_test/models/post.dart';
 import 'package:flutter_api_test/services/post_service.dart';
 import 'package:flutter_api_test/services/user_service.dart';
-import 'package:http/http.dart';
+
 import 'package:image_picker/image_picker.dart';
 
 import '../constant.dart';
