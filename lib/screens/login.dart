@@ -39,12 +39,13 @@ class _LoginState extends State<Login> {
     SharedPreferences pref = await SharedPreferences.getInstance();
     await pref.setString('token', user.token ?? '');
     await pref.setInt('userId', user.id ?? 0);
-    print(user);
+    //print(user);
     setState(() {
       loading = false;
     });
     Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => Home()), (route) => false);
+        MaterialPageRoute(builder: (context) => const Home()),
+        (route) => false);
   }
 
   @override
@@ -60,7 +61,7 @@ class _LoginState extends State<Login> {
       body: Form(
           key: formkey,
           child: ListView(
-            padding: EdgeInsets.all(32),
+            padding: const EdgeInsets.all(32),
             children: [
               TextFormField(
                 keyboardType: TextInputType.emailAddress,
@@ -68,7 +69,7 @@ class _LoginState extends State<Login> {
                 validator: (value) => value!.isEmpty ? 'Invalid email' : null,
                 decoration: kinputDecoration("Email"),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               TextFormField(
@@ -78,11 +79,11 @@ class _LoginState extends State<Login> {
                     value!.isEmpty ? 'Required at least 6' : null,
                 decoration: kinputDecoration("Password"),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               loading
-                  ? Center(
+                  ? const Center(
                       child: CircularProgressIndicator(),
                     )
                   : kTextbutton('Login', () {
@@ -93,12 +94,12 @@ class _LoginState extends State<Login> {
                         });
                       }
                     }),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               kLoginRegisterHint('Reigister?', 'Register', () {
                 Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (context) => Register()),
+                    MaterialPageRoute(builder: (context) => const Register()),
                     (route) => false);
               })
             ],

@@ -49,7 +49,8 @@ class _RegisterState extends State<Register> {
       loading = false;
     });
     Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => Home()), (route) => false);
+        MaterialPageRoute(builder: (context) => const Home()),
+        (route) => false);
   }
 
   @override
@@ -65,7 +66,7 @@ class _RegisterState extends State<Register> {
       body: Form(
           key: formkey,
           child: ListView(
-            padding: EdgeInsets.all(32),
+            padding: const EdgeInsets.all(32),
             children: [
               TextFormField(
                 keyboardType: TextInputType.name,
@@ -73,7 +74,7 @@ class _RegisterState extends State<Register> {
                 validator: (value) => value!.isEmpty ? 'Invalid name' : null,
                 decoration: kinputDecoration("Name"),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               TextFormField(
@@ -82,7 +83,7 @@ class _RegisterState extends State<Register> {
                 validator: (value) => value!.isEmpty ? 'Invalid email' : null,
                 decoration: kinputDecoration("Email"),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               TextFormField(
@@ -92,7 +93,7 @@ class _RegisterState extends State<Register> {
                     value!.length < 6 ? 'Required at least 6' : null,
                 decoration: kinputDecoration("Password"),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               TextFormField(
@@ -103,11 +104,11 @@ class _RegisterState extends State<Register> {
                     : null,
                 decoration: kinputDecoration("Confirm Password"),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               loading
-                  ? Center(
+                  ? const Center(
                       child: CircularProgressIndicator(),
                     )
                   : kTextbutton('Register', () {
@@ -118,12 +119,12 @@ class _RegisterState extends State<Register> {
                         });
                       }
                     }),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               kLoginRegisterHint('Already have Account?', 'Login', () {
                 Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (context) => Login()),
+                    MaterialPageRoute(builder: (context) => const Login()),
                     (route) => false);
               })
             ],

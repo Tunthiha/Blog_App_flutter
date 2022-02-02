@@ -35,7 +35,7 @@ class _PostScreenState extends State<PostScreen> {
     } else if (response.error == unauthorized) {
       logout().then((value) => {
             Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => Login()),
+                MaterialPageRoute(builder: (context) => const Login()),
                 (route) => false)
           });
     }
@@ -48,7 +48,7 @@ class _PostScreenState extends State<PostScreen> {
     } else if (response.error == unauthorized) {
       logout().then((value) => {
             Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => Login()),
+                MaterialPageRoute(builder: (context) => const Login()),
                 (route) => false)
           });
     } else {
@@ -60,7 +60,7 @@ class _PostScreenState extends State<PostScreen> {
   @override
   void initState() {
     retrievePosts();
-    print(userId);
+    //print(userId);
     super.initState();
   }
 
@@ -70,10 +70,10 @@ class _PostScreenState extends State<PostScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => PostForm()))
+              .push(MaterialPageRoute(builder: (context) => const PostForm()))
               .then((value) => {_loading = false, retrievePosts()});
         },
-        child: Icon(Icons.post_add),
+        child: const Icon(Icons.post_add),
       ),
       body: Container(
         child: Column(
@@ -104,13 +104,13 @@ class _PostScreenState extends State<PostScreen> {
             ),
             Flexible(
               child: _loading
-                  ? Center(child: CircularProgressIndicator())
+                  ? const Center(child: CircularProgressIndicator())
                   : ListView.builder(
                       itemBuilder: (BuildContext context, int index) {
                         Post post = _postList[index];
                         return Card(
                           child: Container(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 horizontal: 4, vertical: 10),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -127,7 +127,7 @@ class _PostScreenState extends State<PostScreen> {
                                           child: Container(
                                             child: Text(
                                               "${post.user!.name}",
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 18),
                                             ),
@@ -135,7 +135,7 @@ class _PostScreenState extends State<PostScreen> {
                                         ),
                                       ],
                                     ),
-                                    Spacer(),
+                                    const Spacer(),
                                     post.user!.id == userId
                                         ? PopupMenuButton(
                                             itemBuilder: (context) => [
@@ -173,14 +173,14 @@ class _PostScreenState extends State<PostScreen> {
                                               ),
                                             ),
                                           )
-                                        : SizedBox()
+                                        : const SizedBox()
                                   ],
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 15,
                                 ),
                                 Text('${post.body}'),
-                                SizedBox(
+                                const SizedBox(
                                   height: 10,
                                 ),
                                 post.image == null
@@ -188,7 +188,7 @@ class _PostScreenState extends State<PostScreen> {
                                         width:
                                             MediaQuery.of(context).size.width,
                                         height: 180,
-                                        decoration: BoxDecoration(
+                                        decoration: const BoxDecoration(
                                             image: DecorationImage(
                                                 image: NetworkImage(
                                                     'https://picsum.photos/250?image=9'),
@@ -198,7 +198,7 @@ class _PostScreenState extends State<PostScreen> {
                                         width:
                                             MediaQuery.of(context).size.width,
                                         height: 180,
-                                        decoration: BoxDecoration(
+                                        decoration: const BoxDecoration(
                                             image: DecorationImage(
                                                 image: NetworkImage(
                                                     'https://picsum.photos/250?image=9'),

@@ -36,7 +36,7 @@ Future<ApiResponse> login(String email, String password) async {
 }
 
 Future<ApiResponse> register(
-    String email, String password, String name, String con_passwowrd) async {
+    String email, String password, String name, String conPasswowrd) async {
   ApiResponse apiresponse = ApiResponse();
   try {
     final response = await http.post(Uri.parse(registerURL), headers: {
@@ -45,7 +45,7 @@ Future<ApiResponse> register(
       'name': name,
       'email': email,
       'password': password,
-      'password_confirmation': con_passwowrd
+      'password_confirmation': conPasswowrd
     });
     switch (response.statusCode) {
       case 200:

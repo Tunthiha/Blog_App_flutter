@@ -17,15 +17,18 @@ class _LoadingState extends State<Loading> {
     String token = await getToken();
     if (token == '') {
       Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => Login()), (route) => false);
+          MaterialPageRoute(builder: (context) => const Login()),
+          (route) => false);
     } else {
       ApiResponse response = await getUserDetail();
       if (response.error == null) {
         Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => Home()), (route) => false);
+            MaterialPageRoute(builder: (context) => const Home()),
+            (route) => false);
       } else if (response.error == unauthorized) {
         Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => Login()), (route) => false);
+            MaterialPageRoute(builder: (context) => const Login()),
+            (route) => false);
       } else {
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text('${response.error}')));
@@ -35,7 +38,6 @@ class _LoadingState extends State<Loading> {
 
   @override
   void initState() {
-    // TODO: implement initState
     _loadUserInfo();
     super.initState();
   }

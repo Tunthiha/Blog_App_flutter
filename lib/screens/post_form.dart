@@ -41,7 +41,7 @@ class _PostFormState extends State<PostForm> {
     } else if (response.error == unauthorized) {
       logout().then((value) => {
             Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => Login()),
+                MaterialPageRoute(builder: (context) => const Login()),
                 (route) => false)
           });
     } else {
@@ -81,7 +81,7 @@ class _PostFormState extends State<PostForm> {
                       onPressed: () {
                         getImage();
                       },
-                      icon: Icon(Icons.image),
+                      icon: const Icon(Icons.image),
                       iconSize: 50,
                       color: _imageFile == null ? Colors.black : Colors.black12,
                     )),
@@ -89,7 +89,7 @@ class _PostFormState extends State<PostForm> {
                   Form(
                     key: _formKey,
                     child: Padding(
-                      padding: EdgeInsets.all(8),
+                      padding: const EdgeInsets.all(8),
                       child: TextFormField(
                         controller: _txtConfrollerBody,
                         keyboardType: TextInputType.multiline,

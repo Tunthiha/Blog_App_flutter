@@ -13,12 +13,12 @@ const unauthorized = 'Unauthorized';
 const somethingWrong = 'Something went wrong';
 
 TextStyle OpenSansCondensedTextStyle() =>
-    TextStyle(fontFamily: 'OpenSansCondensed');
+    const TextStyle(fontFamily: 'OpenSansCondensed');
 InputDecoration kinputDecoration(String label) {
   return InputDecoration(
       labelText: label,
-      contentPadding: EdgeInsets.all(10),
-      border: OutlineInputBorder(
+      contentPadding: const EdgeInsets.all(10),
+      border: const OutlineInputBorder(
           borderSide: BorderSide(width: 1, color: Colors.black)));
 }
 
@@ -27,13 +27,13 @@ TextButton kTextbutton(String label, Function onPressed) {
     onPressed: () => onPressed(),
     child: Text(
       label,
-      style: TextStyle(color: Colors.white),
+      style: const TextStyle(color: Colors.white),
     ),
     style: ButtonStyle(
         backgroundColor:
-            MaterialStateColor.resolveWith((states) => Color(0xFFFF4040)),
+            MaterialStateColor.resolveWith((states) => const Color(0xFFFF4040)),
         padding: MaterialStateProperty.resolveWith(
-            (states) => EdgeInsets.symmetric(vertical: 10))),
+            (states) => const EdgeInsets.symmetric(vertical: 10))),
   );
 }
 
@@ -47,7 +47,7 @@ Row kLoginRegisterHint(String text, String label, Function onTap) {
       GestureDetector(
         child: Text(
           label,
-          style: TextStyle(color: Colors.blue),
+          style: const TextStyle(color: Colors.blue),
         ),
         onTap: () => onTap(),
       )

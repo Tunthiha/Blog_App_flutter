@@ -46,7 +46,8 @@ class _HomeState extends State<Home> {
                 onPressed: () {
                   logout().then((value) => {
                         Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(builder: (context) => Login()),
+                            MaterialPageRoute(
+                                builder: (context) => const Login()),
                             (route) => false)
                       });
                 },
