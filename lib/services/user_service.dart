@@ -79,6 +79,7 @@ Future<ApiResponse> getUserDetail() async {
     switch (response.statusCode) {
       case 200:
         apiresponse.data = User.fromJson(jsonDecode(response.body));
+        //print(apiresponse.data);
         break;
       case 401:
         apiresponse.error = unauthorized;

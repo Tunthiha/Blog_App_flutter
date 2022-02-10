@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_api_test/models/api_response.dart';
+import 'package:flutter_api_test/models/user.dart';
 import 'package:flutter_api_test/screens/post_form.dart';
 import 'package:flutter_api_test/screens/post_screen.dart';
 import 'package:flutter_api_test/screens/profile_screen.dart';
+import 'package:flutter_api_test/services/post_service.dart';
 import 'package:flutter_api_test/services/user_service.dart';
 
 import '../constant.dart';
@@ -15,19 +18,44 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    PostScreen(),
-    ProfileScreen(),
-  ];
+  User? user;
+  bool _loading = true;
+  retreiveUserDetail() async {
+    ApiResponse response = await getUserDetail();
+    if (response.error == null) {
+      setState(() {
+        user = response.data as User;
+        _loading = _loading ? !_loading : _loading;
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+        //print(user.name);
+      });
+    } else if (response.error == unauthorized) {
+      logout().then((value) => {
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => const Login()),
+                (route) => false)
+          });
+    }
   }
+
+  @override
+  void initState() {
+    retreiveUserDetail();
+    super.initState();
+  }
+  // int _selectedIndex = 0;
+  // static const TextStyle optionStyle =
+  //     TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  // static const List<Widget> _widgetOptions = <Widget>[
+  //   PostScreen(),
+  //   ProfileScreen(),
+  // ];
+
+  // void _onItemTapped(int index) {
+  //   setState(() {
+  //     _selectedIndex = index;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -39,39 +67,118 @@ class _HomeState extends State<Home> {
         appBar: AppBar(
           title: Text(
             'My Blog App',
-            style: OpenSansCondensedTextStyle(),
+            style: robotoTextstyle(),
           ),
-          actions: [
-            IconButton(
-                onPressed: () {
-                  logout().then((value) => {
-                        Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(
-                                builder: (context) => const Login()),
-                            (route) => false)
-                      });
-                },
-                icon: const Icon(Icons.logout))
-          ],
         ),
         body: Center(
-          child: _widgetOptions.elementAt(_selectedIndex),
+          child: PostScreen(),
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          elevation: 50,
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Post',
+        endDrawer: SafeArea(
+          child: Drawer(
+            backgroundColor: Color(0xFF3f37cc),
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                DrawerHeader(
+                    margin: EdgeInsets.zero,
+                    padding: EdgeInsets.zero,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            fit: BoxFit.fill,
+                            image: AssetImage('images/blog.jpg'))),
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          bottom: 12,
+                          left: 16,
+                          child: Text(
+                            "Hello ${user?.name ?? ''}",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        )
+                      ],
+                    )),
+                Card(
+                  color: Color(0xFF3f37cc),
+                  elevation: 1,
+                  child: ListTile(
+                    leading: Icon(
+                      Icons.account_box_rounded,
+                      color: Colors.white,
+                    ),
+                    title: const Text("Profile",
+                        style: TextStyle(color: Colors.white)),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ProfileScreen()),
+                      );
+
+                      //Navigator.pop(context);
+                    },
+                  ),
+                ),
+                Card(
+                  color: Color(0xFF3f37cc),
+                  elevation: 1,
+                  child: ListTile(
+                    leading: Icon(
+                      Icons.bookmark,
+                      color: Colors.white,
+                    ),
+                    title: const Text(
+                      "Book Marked Posts",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ProfileScreen()),
+                      );
+
+                      //Navigator.pop(context);
+                    },
+                  ),
+                ),
+                Card(
+                  color: Color(0xFF3f37cc),
+                  elevation: 1,
+                  child: ListTile(
+                    leading: Icon(
+                      Icons.logout_rounded,
+                      color: Colors.white,
+                    ),
+                    title: const Text("Log Out",
+                        style: TextStyle(color: Colors.white)),
+                    onTap: () {
+                      logout().then((value) => {
+                            Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(
+                                    builder: (context) => const Login()),
+                                (route) => false)
+                          });
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+                Center(
+                  child: Text("${user?.email}",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 22,
+                          fontWeight: FontWeight.w500)),
+                )
+              ],
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.account_box),
-              label: 'Profile',
-            ),
-          ],
-          currentIndex: _selectedIndex,
-          selectedItemColor: Colors.blueAccent[800],
-          onTap: _onItemTapped,
+          ),
         ),
       ),
     );

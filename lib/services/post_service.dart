@@ -41,6 +41,8 @@ Future<ApiResponse> getPosts(String? query) async {
 }
 
 Future<ApiResponse> createPost(String body, String? image) async {
+  //print(body);
+  //print(image);
   ApiResponse apiresponse = ApiResponse();
   try {
     String token = await getToken();
@@ -97,7 +99,7 @@ Future<ApiResponse> editPost(String body, int postId, String? image) async {
     switch (response.statusCode) {
       case 200:
         apiresponse.data = jsonDecode(response.body);
-        //print(response.body);
+        print(response.body);
         break;
       case 422:
         final errors = jsonDecode(response.body)['errors'];

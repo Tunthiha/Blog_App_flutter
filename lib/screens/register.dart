@@ -59,7 +59,7 @@ class _RegisterState extends State<Register> {
       appBar: AppBar(
         title: Text(
           'Register',
-          style: OpenSansCondensedTextStyle(),
+          style: robotoTextstyle(),
         ),
         centerTitle: true,
       ),

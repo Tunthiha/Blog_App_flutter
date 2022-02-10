@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const baseURL = 'http://192.168.1.4:8000/api';
+const baseURL = 'http://192.168.1.5:8000/api';
 const loginURL = baseURL + '/login';
 const registerURL = baseURL + '/register';
 const logoutURL = baseURL + '/logout';
@@ -13,7 +13,9 @@ const unauthorized = 'Unauthorized';
 const somethingWrong = 'Something went wrong';
 
 TextStyle OpenSansCondensedTextStyle() =>
-    const TextStyle(fontFamily: 'OpenSansCondensed');
+    const TextStyle(fontFamily: 'OpenSansCondensed', color: Colors.black);
+TextStyle robotoTextstyle() =>
+    const TextStyle(fontFamily: 'Roboto', color: Colors.white);
 InputDecoration kinputDecoration(String label) {
   return InputDecoration(
       labelText: label,
@@ -31,7 +33,7 @@ TextButton kTextbutton(String label, Function onPressed) {
     ),
     style: ButtonStyle(
         backgroundColor:
-            MaterialStateColor.resolveWith((states) => const Color(0xFFFF4040)),
+            MaterialStateColor.resolveWith((states) => const Color(0xFF11468F)),
         padding: MaterialStateProperty.resolveWith(
             (states) => const EdgeInsets.symmetric(vertical: 10))),
   );

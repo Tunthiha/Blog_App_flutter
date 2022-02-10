@@ -13,10 +13,13 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-          primaryColor: const Color(0xFF4C4F5E),
+          colorScheme: Theme.of(context)
+              .colorScheme
+              .copyWith(secondary: Color(0xFF3f37cc)),
+          primaryColor: Colors.white,
           appBarTheme: const AppBarTheme(
-            backgroundColor: Color(0xFF80FFF0),
-          )),
+              backgroundColor: Color(0xFF3f37cc),
+              iconTheme: IconThemeData(color: Colors.white))),
       debugShowCheckedModeBanner: false,
       home: const Loading(),
     );

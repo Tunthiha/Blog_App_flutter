@@ -54,7 +54,7 @@ class _LoginState extends State<Login> {
       appBar: AppBar(
         title: Text(
           'Login',
-          style: OpenSansCondensedTextStyle(),
+          style: robotoTextstyle(),
         ),
         centerTitle: true,
       ),

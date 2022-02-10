@@ -26,6 +26,8 @@ class _EditPostState extends State<EditPost> {
 
   bool _loading = false;
   File? _imageFile;
+  dynamic img;
+
   final _picker = ImagePicker();
   Future getImage() async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
@@ -65,6 +67,12 @@ class _EditPostState extends State<EditPost> {
   void initState() {
     //final _postID = widget.post.id;
     _txtConfrollerBody.text = widget.post.body.toString();
+    if (widget.post.image != null) {
+      //wdiget.post.image
+      print(widget.post.image);
+      img = NetworkImage('${widget.post.image}');
+    }
+
     super.initState();
   }
 
@@ -88,10 +96,12 @@ class _EditPostState extends State<EditPost> {
                     height: 200,
                     decoration: BoxDecoration(
                         image: _imageFile == null
-                            ? const DecorationImage(
-                                image: NetworkImage(
-                                    'https://picsum.photos/250?image=9'),
-                                fit: BoxFit.cover)
+                            ? DecorationImage(
+                                image: img ??
+                                    NetworkImage(
+                                        'https://picsum.photos/250?image=9'),
+                                fit: BoxFit.cover,
+                              )
                             : DecorationImage(
                                 image: FileImage(_imageFile ?? File('')))),
                     child: Center(
