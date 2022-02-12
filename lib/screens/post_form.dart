@@ -59,7 +59,7 @@ class _PostFormState extends State<PostForm> {
         appBar: AppBar(
           title: Text(
             "Add New Post",
-            style: OpenSansCondensedTextStyle(),
+            style: robotoTextstyle(),
           ),
         ),
         body: _loading

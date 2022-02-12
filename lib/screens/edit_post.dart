@@ -3,8 +3,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_api_test/models/api_response.dart';
 import 'package:flutter_api_test/models/post.dart';
+import 'package:flutter_api_test/models/post_data.dart';
+import 'package:flutter_api_test/screens/home.dart';
 import 'package:flutter_api_test/services/post_service.dart';
 import 'package:flutter_api_test/services/user_service.dart';
+import 'package:provider/provider.dart';
 
 import 'package:image_picker/image_picker.dart';
 
@@ -47,7 +50,13 @@ class _EditPostState extends State<EditPost> {
     );
 
     if (response.error == null) {
-      Navigator.of(context).pop();
+      // ---- Provider -----
+      //Provider.of<PostData>(context, listen: false).retrievePs();
+      //Provider.of<PostData>(context, listen: false).updatepost();
+      //Navigator.pop(context);
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => const Home()),
+          (route) => false);
     } else if (response.error == unauthorized) {
       logout().then((value) => {
             Navigator.of(context).pushAndRemoveUntil(
@@ -69,7 +78,7 @@ class _EditPostState extends State<EditPost> {
     _txtConfrollerBody.text = widget.post.body.toString();
     if (widget.post.image != null) {
       //wdiget.post.image
-      print(widget.post.image);
+      //print(widget.post.image);
       img = NetworkImage('${widget.post.image}');
     }
 
@@ -82,7 +91,7 @@ class _EditPostState extends State<EditPost> {
         appBar: AppBar(
           title: Text(
             "Edit Post",
-            style: OpenSansCondensedTextStyle(),
+            style: robotoTextstyle(),
           ),
         ),
         body: _loading

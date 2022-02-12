@@ -70,115 +70,14 @@ class _HomeState extends State<Home> {
             style: robotoTextstyle(),
           ),
         ),
+        drawer: SafeArea(
+          child: Navigation(
+            user: user,
+            selectedNav: 1,
+          ),
+        ),
         body: Center(
           child: PostScreen(),
-        ),
-        endDrawer: SafeArea(
-          child: Drawer(
-            backgroundColor: Color(0xFF3f37cc),
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: [
-                DrawerHeader(
-                    margin: EdgeInsets.zero,
-                    padding: EdgeInsets.zero,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            fit: BoxFit.fill,
-                            image: AssetImage('images/blog.jpg'))),
-                    child: Stack(
-                      children: [
-                        Positioned(
-                          bottom: 12,
-                          left: 16,
-                          child: Text(
-                            "Hello ${user?.name ?? ''}",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w500),
-                          ),
-                        )
-                      ],
-                    )),
-                Card(
-                  color: Color(0xFF3f37cc),
-                  elevation: 1,
-                  child: ListTile(
-                    leading: Icon(
-                      Icons.account_box_rounded,
-                      color: Colors.white,
-                    ),
-                    title: const Text("Profile",
-                        style: TextStyle(color: Colors.white)),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const ProfileScreen()),
-                      );
-
-                      //Navigator.pop(context);
-                    },
-                  ),
-                ),
-                Card(
-                  color: Color(0xFF3f37cc),
-                  elevation: 1,
-                  child: ListTile(
-                    leading: Icon(
-                      Icons.bookmark,
-                      color: Colors.white,
-                    ),
-                    title: const Text(
-                      "Book Marked Posts",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const ProfileScreen()),
-                      );
-
-                      //Navigator.pop(context);
-                    },
-                  ),
-                ),
-                Card(
-                  color: Color(0xFF3f37cc),
-                  elevation: 1,
-                  child: ListTile(
-                    leading: Icon(
-                      Icons.logout_rounded,
-                      color: Colors.white,
-                    ),
-                    title: const Text("Log Out",
-                        style: TextStyle(color: Colors.white)),
-                    onTap: () {
-                      logout().then((value) => {
-                            Navigator.of(context).pushAndRemoveUntil(
-                                MaterialPageRoute(
-                                    builder: (context) => const Login()),
-                                (route) => false)
-                          });
-                      Navigator.pop(context);
-                    },
-                  ),
-                ),
-                SizedBox(
-                  height: 50,
-                ),
-                Center(
-                  child: Text("${user?.email}",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 22,
-                          fontWeight: FontWeight.w500)),
-                )
-              ],
-            ),
-          ),
         ),
       ),
     );
