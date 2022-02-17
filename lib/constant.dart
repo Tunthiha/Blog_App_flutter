@@ -7,6 +7,7 @@ import 'package:flutter_api_test/services/user_service.dart';
 import 'models/user.dart';
 
 const baseURL = 'http://192.168.1.5:8000/api';
+
 const loginURL = baseURL + '/login';
 const registerURL = baseURL + '/register';
 const logoutURL = baseURL + '/logout';

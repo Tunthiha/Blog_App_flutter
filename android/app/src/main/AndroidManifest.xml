@@ -2,7 +2,7 @@
     package="com.example.flutter_api_test">
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="flutter_api_test"
+        android:label="Blog App"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="true"

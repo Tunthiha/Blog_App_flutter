@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_api_test/models/api_response.dart';
 import 'package:flutter_api_test/models/post.dart';
 import 'package:flutter_api_test/models/post_data.dart';
+import 'package:flutter_api_test/screens/comment_screen.dart';
 import 'package:flutter_api_test/screens/detail_post.dart';
 import 'package:flutter_api_test/screens/edit_post.dart';
 import 'package:flutter_api_test/screens/post_form.dart';
@@ -73,6 +74,22 @@ class _PostScreenState extends State<PostScreen> {
 
   void _handleDeletePost(int postId) async {
     ApiResponse response = await deletePost(postId);
+    if (response.error == null) {
+      retrievePosts();
+    } else if (response.error == unauthorized) {
+      logout().then((value) => {
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => const Login()),
+                (route) => false)
+          });
+    } else {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('${response.error}')));
+    }
+  }
+
+  _handleLikeDisLike(int postId) async {
+    ApiResponse response = await likeUnlikePost(postId);
     if (response.error == null) {
       retrievePosts();
     } else if (response.error == unauthorized) {
@@ -221,7 +238,10 @@ class _PostScreenState extends State<PostScreen> {
                                       .push(MaterialPageRoute(
                                           builder: (context) => DetailPost(
                                                 post: post,
+                                                selflike:
+                                                    post.selfLiked ?? false,
                                                 index: index,
+                                                id: post.id ?? 0,
                                               )))
                                       .then((value) =>
                                           {_loading = false, retrievePosts()});
@@ -358,26 +378,66 @@ class _PostScreenState extends State<PostScreen> {
                                             //       print(_postList[index]);
                                             //     },
                                             //     child: Text("hello")),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                const Text(
-                                                  'More Detail',
-                                                  //'${Provider.of<PostData>(context).allpost[index].body}',
-                                                  style: const TextStyle(
-                                                      color: const Color(
-                                                          0xFF3f37cc)),
-                                                ),
-                                                const Icon(Icons.arrow_right)
-                                              ],
-                                            ),
+
                                             // Container(
                                             //   child: Text("${newpost.body}"),
                                             // )
                                           ],
                                         ),
-                                      )
+                                      ),
+
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 2, bottom: 0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            GestureDetector(
+                                              onTap: () {
+                                                _handleLikeDisLike(
+                                                    post.id ?? 0);
+                                              },
+                                              child: Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.thumb_up,
+                                                    color:
+                                                        post.selfLiked == true
+                                                            ? Colors.red
+                                                            : Colors.black,
+                                                  ),
+                                                  SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Text(
+                                                      '${post.likesCount ?? 0}')
+                                                ],
+                                              ),
+                                            ),
+                                            // Text("${post.likesCount}"),
+                                            GestureDetector(
+                                              onTap: () {
+                                                Navigator.of(context).push(
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            CommentScreen(
+                                                              id: post.id ?? 0,
+                                                            )));
+                                              },
+                                              child: Row(
+                                                children: [
+                                                  Icon(Icons.comment_sharp),
+                                                  SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Text('${post.commentsCount}')
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),

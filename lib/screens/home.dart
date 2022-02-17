@@ -76,7 +76,7 @@ class _HomeState extends State<Home> {
             selectedNav: 1,
           ),
         ),
-        body: Center(
+        body: const Center(
           child: PostScreen(),
         ),
       ),
