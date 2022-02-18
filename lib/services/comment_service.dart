@@ -109,11 +109,12 @@ Future<ApiResponse> deleteComment(int commentId) async {
   return apiresponse;
 }
 
-Future<ApiResponse> editComment(String comment, int postId) async {
+Future<ApiResponse> editComment(String comment, int commentId) async {
   ApiResponse apiresponse = ApiResponse();
   try {
     String token = await getToken();
-    final response = await http.put(Uri.parse('$postURL/$postId'), headers: {
+    final response =
+        await http.put(Uri.parse('$commentURL/$commentId'), headers: {
       'Accept': 'application/json',
       'Authorization': 'Bearer $token',
     }, body: {

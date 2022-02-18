@@ -105,6 +105,22 @@ class _DetailPostState extends State<DetailPost> {
     });
   }
 
+  void _deleteComment(int commentId) async {
+    ApiResponse response = await deleteComment(commentId);
+    if (response.error == null) {
+      retrieveComments();
+    } else if (response.error == unauthorized) {
+      logout().then((value) => {
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => const Login()),
+                (route) => false)
+          });
+    } else {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('${response.error}')));
+    }
+  }
+
   @override
   void initState() {
     like = widget.selflike;
@@ -190,7 +206,8 @@ class _DetailPostState extends State<DetailPost> {
                     decoration: BoxDecoration(
                         image: DecorationImage(
                       image: img == null
-                          ? const NetworkImage("https://picsum.photos/250?image=9")
+                          ? const NetworkImage(
+                              "https://picsum.photos/250?image=9")
                           : NetworkImage(
                               // "${Provider.of<PostData>(context).posts[widget.index].image}"
                               "${widget.post.image}"),
@@ -260,8 +277,8 @@ class _DetailPostState extends State<DetailPost> {
                             child: Text(
                               "${widget.post.body}",
                               //"${Provider.of<PostData>(context).posts[widget.index].body}",
-                              style:
-                                  const TextStyle(color: Colors.black, fontSize: 16),
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 16),
                             ),
                           ),
                         ),
@@ -375,9 +392,14 @@ class _DetailPostState extends State<DetailPost> {
                                                   onSelected: (value) {
                                                     if (value == 'edit') {
                                                       Navigator.of(context)
-                                                          .push(MaterialPageRoute(
-                                                              builder: (context) =>
-                                                                  const EditComment()))
+                                                          .push(
+                                                              MaterialPageRoute(
+                                                                  builder:
+                                                                      (context) =>
+                                                                          EditComment(
+                                                                            comment:
+                                                                                comment,
+                                                                          )))
                                                           .then((value) => {
                                                                 _loading =
                                                                     false,
@@ -386,7 +408,10 @@ class _DetailPostState extends State<DetailPost> {
                                                                 //         context)
                                                                 //     .retrievePs()
                                                               });
-                                                    } else {}
+                                                    } else {
+                                                      _deleteComment(
+                                                          comment.id ?? 0);
+                                                    }
                                                   },
                                                   child: const Padding(
                                                     padding: EdgeInsets.only(

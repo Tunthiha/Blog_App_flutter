@@ -66,6 +66,22 @@ class _CommentScreenState extends State<CommentScreen> {
     }
   }
 
+  void _deleteComment(int commentId) async {
+    ApiResponse response = await deleteComment(commentId);
+    if (response.error == null) {
+      retrieveComments();
+    } else if (response.error == unauthorized) {
+      logout().then((value) => {
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => const Login()),
+                (route) => false)
+          });
+    } else {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('${response.error}')));
+    }
+  }
+
   @override
   void initState() {
     retrieveComments();
@@ -156,7 +172,9 @@ class _CommentScreenState extends State<CommentScreen> {
                                                 Navigator.of(context)
                                                     .push(MaterialPageRoute(
                                                         builder: (context) =>
-                                                            EditComment()))
+                                                            EditComment(
+                                                              comment: comment,
+                                                            )))
                                                     .then((value) => {
                                                           _loading = false,
                                                           retrieveComments(),
@@ -164,7 +182,9 @@ class _CommentScreenState extends State<CommentScreen> {
                                                           //         context)
                                                           //     .retrievePs()
                                                         });
-                                              } else {}
+                                              } else {
+                                                _deleteComment(comment.id ?? 0);
+                                              }
                                             },
                                             child: const Padding(
                                               padding:
