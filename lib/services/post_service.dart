@@ -7,6 +7,41 @@ import 'package:http/http.dart' as http;
 
 import '../constant.dart';
 
+Future<ApiResponse> bookmarkPosts(String user) async {
+  ApiResponse apiresponse = ApiResponse();
+  String? bookmarkUrl = "$postURL/tun/bookmarks";
+  //print(bookmarkUrl);
+  try {
+    String token = await getToken();
+    final response = await http.get(
+      Uri.parse(
+        bookmarkUrl,
+      ),
+      headers: {'Accept': 'application/json', 'Authorization': 'Bearer $token'},
+    );
+    switch (response.statusCode) {
+      case 200:
+        //print(response.body);
+        apiresponse.data = jsonDecode(response.body)['posts']
+            .map((p) => Post.fromJson(p))
+            .toList();
+        //print(apiresponse.data);
+        apiresponse.data as List<dynamic>;
+
+        break;
+      case 401:
+        apiresponse.error = unauthorized;
+        break;
+      default:
+        apiresponse.error = somethingWrong;
+        break;
+    }
+  } catch (e) {
+    apiresponse.error = serverError;
+  }
+  return apiresponse;
+}
+
 Future<ApiResponse> getPosts(String? query) async {
   ApiResponse apiresponse = ApiResponse();
   String? searchUrl = "$postURL?search=$query";

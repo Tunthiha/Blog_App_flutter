@@ -56,18 +56,23 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Register',
-          style: robotoTextstyle(),
-        ),
-        centerTitle: true,
-      ),
       body: Form(
           key: formkey,
           child: ListView(
             padding: const EdgeInsets.all(32),
             children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 180,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: const DecorationImage(
+                          image: AssetImage('images/Blog_logo.jpg'),
+                          fit: BoxFit.contain)),
+                ),
+              ),
               TextFormField(
                 keyboardType: TextInputType.name,
                 controller: nameController,

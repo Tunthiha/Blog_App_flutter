@@ -108,14 +108,17 @@ class _PostFormState extends State<PostForm> {
                   const SizedBox(
                     height: 10,
                   ),
-                  kTextbutton("Submit Post", () {
-                    if (_formKey.currentState!.validate()) {
-                      setState(() {
-                        _loading = !_loading;
-                      });
-                      _createPost();
-                    }
-                  })
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8, right: 8, top: 0),
+                    child: kTextbutton("Submit Post", () {
+                      if (_formKey.currentState!.validate()) {
+                        setState(() {
+                          _loading = !_loading;
+                        });
+                        _createPost();
+                      }
+                    }),
+                  )
                 ],
               ));
   }

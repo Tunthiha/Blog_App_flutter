@@ -146,14 +146,17 @@ class _EditPostState extends State<EditPost> {
                   const SizedBox(
                     height: 10,
                   ),
-                  kTextbutton("Update Post", () {
-                    if (_formKey.currentState!.validate()) {
-                      setState(() {
-                        _loading = !_loading;
-                      });
-                      _editPost(widget.post.id ?? 0);
-                    }
-                  })
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8, right: 8),
+                    child: kTextbutton("Update Post", () {
+                      if (_formKey.currentState!.validate()) {
+                        setState(() {
+                          _loading = !_loading;
+                        });
+                        _editPost(widget.post.id ?? 0);
+                      }
+                    }),
+                  )
                 ],
               ));
   }

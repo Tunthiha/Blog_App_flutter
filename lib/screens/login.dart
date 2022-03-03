@@ -51,18 +51,23 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Login',
-          style: robotoTextstyle(),
-        ),
-        centerTitle: true,
-      ),
       body: Form(
           key: formkey,
           child: ListView(
             padding: const EdgeInsets.all(32),
             children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 180,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: const DecorationImage(
+                          image: AssetImage('images/Blog_logo.jpg'),
+                          fit: BoxFit.contain)),
+                ),
+              ),
               TextFormField(
                 keyboardType: TextInputType.emailAddress,
                 controller: txtEmail,
@@ -97,7 +102,7 @@ class _LoginState extends State<Login> {
               const SizedBox(
                 height: 10,
               ),
-              kLoginRegisterHint('Reigister?', 'Register', () {
+              kLoginRegisterHint('Want to Sign Up ?', 'Register Here', () {
                 Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(builder: (context) => const Register()),
                     (route) => false);

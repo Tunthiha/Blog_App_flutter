@@ -220,19 +220,6 @@ class _DetailPostState extends State<DetailPost> {
                 padding: const EdgeInsets.only(left: 15, right: 15),
                 child: Column(
                   children: <Widget>[
-                    Container(
-                      alignment: const Alignment(-1.0, -1.0),
-                      child: const Padding(
-                        padding: EdgeInsets.only(top: 15, bottom: 15),
-                        child: Text(
-                          'Author',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 24,
-                              fontWeight: FontWeight.w300),
-                        ),
-                      ),
-                    ),
                     Padding(
                       padding: const EdgeInsets.only(bottom: 25),
                       child: Row(
@@ -240,6 +227,16 @@ class _DetailPostState extends State<DetailPost> {
                         children: <Widget>[
                           Row(
                             children: <Widget>[
+                              Container(
+                                alignment: const Alignment(-1.0, -1.0),
+                                child: const Padding(
+                                    padding:
+                                        EdgeInsets.only(top: 15, bottom: 15),
+                                    child: Icon(Icons.account_box)),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
                               Padding(
                                 padding: const EdgeInsets.only(right: 10.0),
                                 child: Text(
@@ -258,18 +255,6 @@ class _DetailPostState extends State<DetailPost> {
                     ),
                     Column(
                       children: <Widget>[
-                        Center(
-                            //alignment: Alignment(-1.0, -1.0),
-                            child: const Padding(
-                          padding: EdgeInsets.only(bottom: 10.0),
-                          child: Text(
-                            'Description',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w300),
-                          ),
-                        )),
                         Container(
                           alignment: const Alignment(-1.0, -1.0),
                           child: Padding(

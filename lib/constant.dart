@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_api_test/screens/bookmark_screen.dart';
 import 'package:flutter_api_test/screens/home.dart';
 import 'package:flutter_api_test/screens/login.dart';
 import 'package:flutter_api_test/screens/profile_screen.dart';
@@ -6,7 +7,7 @@ import 'package:flutter_api_test/services/user_service.dart';
 
 import 'models/user.dart';
 
-const baseURL = 'http://192.168.1.5:8000/api';
+const baseURL = 'http://192.168.1.4:8000/api';
 
 const loginURL = baseURL + '/login';
 const registerURL = baseURL + '/register';
@@ -157,8 +158,7 @@ class Navigation extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => const ProfileScreen()),
+                  MaterialPageRoute(builder: (context) => const BookMark()),
                 );
 
                 //Navigator.pop(context);
