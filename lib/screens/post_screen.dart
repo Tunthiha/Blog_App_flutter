@@ -412,7 +412,7 @@ class _PostScreenState extends State<PostScreen> {
                                                     Icons.thumb_up,
                                                     color:
                                                         post.selfLiked == true
-                                                            ? Colors.red
+                                                            ? Colors.blueAccent
                                                             : Colors.black,
                                                   ),
                                                   SizedBox(
